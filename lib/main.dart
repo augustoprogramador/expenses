@@ -73,7 +73,6 @@ class MyHomePage extends StatelessWidget {
                             Text(tr.date.toString()),
                           ],
                         ),
-                        Text(tr.title),
                       ],
                     ),
                   ),
