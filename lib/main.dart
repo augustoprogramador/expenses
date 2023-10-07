@@ -19,7 +19,7 @@ class ExpensesApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   final List<Transaction> _transactions = [
     Transaction('t1', 'Tênis', 310.76, DateTime.now()),
-    Transaction('t2', 'Bermuda', 90.76, DateTime.now()),
+    Transaction('t2', 'Bermuda', 90.70, DateTime.now()),
     Transaction('t3', 'Camisa', 110.76, DateTime.now()),
   ];
 
@@ -47,7 +47,7 @@ class MyHomePage extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                             horizontal: 15,
                             vertical: 10,
                           ),
@@ -57,10 +57,10 @@ class MyHomePage extends StatelessWidget {
                               color: Colors.purple,
                             ),
                           ),
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: Text(
-                            tr.value.toString(),
-                            style: TextStyle(
+                            'R\$ ${tr.value.toStringAsFixed(2)}',
+                            style: const TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -72,14 +72,14 @@ class MyHomePage extends StatelessWidget {
                           children: [
                             Text(
                               tr.title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               tr.date.toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.grey,
                               ),
                             ),
