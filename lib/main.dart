@@ -20,6 +20,9 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
+
   final List<Transaction> _transactions = [
     Transaction('t1', 'Tênis', 310.76, DateTime.now()),
     Transaction('t2', 'Bermuda', 90.70, DateTime.now()),
@@ -36,10 +39,10 @@ class MyHomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            child: Card(
+            child: const Card(
               color: Colors.blue,
-              child: Text('Gráfico'),
               elevation: 5,
+              child: Text('Gráfico'),
             ),
           ),
           Column(
@@ -97,13 +100,15 @@ class MyHomePage extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: titleController,
+                  decoration: const InputDecoration(
                     label: Text('Título'),
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: valueController,
+                  decoration: const InputDecoration(
                     label: Text('Valor R\$'),
                   ),
                 ),
@@ -111,7 +116,10 @@ class MyHomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print(this.titleController.text);
+                        print(this.valueController.text);
+                      },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.purple,
                         backgroundColor: Colors.white,
