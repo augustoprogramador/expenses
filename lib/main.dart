@@ -1,4 +1,9 @@
+import 'dart:math';
+
+import 'package:expenses/components/transaction_form.dart';
+import 'package:expenses/components/transaction_list.dart';
 import 'package:expenses/components/transaction_user.dart';
+import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -18,7 +23,46 @@ class ExpensesApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _transactions = [
+    Transaction('t1', 'Tênis', 310.76, DateTime.now()),
+    Transaction('t2', 'Bermuda', 90.70, DateTime.now()),
+    Transaction('t3', 'Camisa 1', 110.76, DateTime.now()),
+    // Transaction('t4', 'Camisa 2', 110.76, DateTime.now()),
+    // Transaction('t5', 'Camisa 3', 110.76, DateTime.now()),
+    // Transaction('t6', 'Camisa 4', 110.76, DateTime.now()),
+    // Transaction('t7', 'Camisa 5', 110.76, DateTime.now()),
+  ];
+
+  _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return TransactionForm(
+          addTransaction: _addTransaction,
+        );
+      },
+    );
+  }
+
+  _addTransaction(String title, double value) {
+    final newTransaction = Transaction(
+      (Random().nextInt(50) + 50).toString(),
+      title,
+      value,
+      DateTime.now(),
+    );
+
+    setState(() {
+      _transactions.add(newTransaction);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +72,9 @@ class MyHomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              _openTransactionFormModal(context);
+            },
           ),
         ],
       ),
@@ -43,13 +89,22 @@ class MyHomePage extends StatelessWidget {
                 child: Text('Gráfico'),
               ),
             ),
-            TransactionUser(),
+            Column(
+              children: [
+                // TransactionForm(
+                //   addTransaction: _addTransaction,
+                // ),
+                TransactionList(transactions: _transactions),
+              ],
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          _openTransactionFormModal(context);
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
