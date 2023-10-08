@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_list.dart';
-import 'package:expenses/components/transaction_user.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -91,9 +90,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Column(
               children: [
-                // TransactionForm(
-                //   addTransaction: _addTransaction,
-                // ),
                 TransactionList(transactions: _transactions),
               ],
             ),
