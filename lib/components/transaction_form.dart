@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double) addTransaction;
+  final void Function(String, double, DateTime) addTransaction;
 
   TransactionForm({required this.addTransaction, super.key});
 
@@ -19,11 +19,12 @@ class _TransactionFormState extends State<TransactionForm> {
     final title = titleController.text;
     final value = double.tryParse(valueController.text) ?? 0.0;
 
-    if (title.isEmpty || value <= 0) return;
+    if (title.isEmpty || value <= 0 || _selectedDate == null) return;
 
     widget.addTransaction(
       title,
       value,
+      _selectedDate!,
     );
   }
 
