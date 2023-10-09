@@ -50,13 +50,27 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
             Row(
+              children: [
+                Text('Nenhuma data selecionada!'),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Colors.white,
+                    elevation: 0,
+                  ),
+                  onPressed: () {},
+                  child: Text('Selecionar data'),
+                ),
+              ],
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
                   onPressed: _submitForm,
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.purple,
-                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.purple,
                   ),
                   child: const Text('Nova Transação'),
                 ),
