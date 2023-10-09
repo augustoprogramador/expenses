@@ -5,9 +5,11 @@ import 'package:intl/date_symbol_data_local.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final void Function(String)? deleteTransaction;
 
   const TransactionList({
     required this.transactions,
+    this.deleteTransaction,
     super.key,
   });
 
@@ -66,6 +68,11 @@ class TransactionList extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     subtitle: Text(DateFormat('d MMM y').format(tr.date)),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).colorScheme.error,
+                      onPressed: () => deleteTransaction!(tr.id),
+                    ),
                   ),
                 );
               },

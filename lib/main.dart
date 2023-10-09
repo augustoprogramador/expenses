@@ -52,12 +52,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //     't1', 'Tênis', 310.76, DateTime.now().subtract(Duration(days: 33))),
-    // Transaction(
-    //     't2', 'Bermuda', 90.70, DateTime.now().subtract(Duration(days: 3))),
-    // Transaction(
-    //     't3', 'Camisa 1', 110.76, DateTime.now().subtract(Duration(days: 3))),
+    Transaction(
+        't1', 'Tênis', 310.76, DateTime.now().subtract(Duration(days: 33))),
+    Transaction(
+        't2', 'Bermuda', 90.70, DateTime.now().subtract(Duration(days: 3))),
+    Transaction(
+        't3', 'Camisa 1', 110.76, DateTime.now().subtract(Duration(days: 3))),
     // Transaction('t4', 'Camisa 2', 110.76, DateTime.now()),
     // Transaction('t5', 'Camisa 3', 110.76, DateTime.now()),
     // Transaction('t6', 'Camisa 4', 110.76, DateTime.now()),
@@ -88,6 +88,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     Navigator.of(context).pop();
+  }
+
+  _deleteTransaction(String id) {
+    setState(() {
+      return _transactions.removeWhere((tr) => tr.id == id);
+    });
   }
 
   List<Transaction> get recentTransactions {
@@ -125,7 +131,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Column(
               children: [
-                TransactionList(transactions: _transactions),
+                TransactionList(
+                  transactions: _transactions,
+                  deleteTransaction: _deleteTransaction,
+                ),
               ],
             ),
           ],
