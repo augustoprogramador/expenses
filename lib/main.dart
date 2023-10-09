@@ -52,9 +52,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    // Transaction('t1', 'Tênis', 310.76, DateTime.now()),
-    // Transaction('t2', 'Bermuda', 90.70, DateTime.now()),
-    // Transaction('t3', 'Camisa 1', 110.76, DateTime.now()),
+    Transaction(
+        't1', 'Tênis', 310.76, DateTime.now().subtract(Duration(days: 33))),
+    Transaction(
+        't2', 'Bermuda', 90.70, DateTime.now().subtract(Duration(days: 3))),
+    Transaction(
+        't3', 'Camisa 1', 110.76, DateTime.now().subtract(Duration(days: 3))),
     // Transaction('t4', 'Camisa 2', 110.76, DateTime.now()),
     // Transaction('t5', 'Camisa 3', 110.76, DateTime.now()),
     // Transaction('t6', 'Camisa 4', 110.76, DateTime.now()),
@@ -87,12 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
+  List<Transaction> get recentTransactions {
+    return _transactions.where((el) {
+      return el.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        // backgroundColor: Theme.of(context).primaryColor,
         title: const Text('Despesas Pessoais'),
         actions: [
           IconButton(
@@ -107,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(),
+            Chart(recentTransactions: recentTransactions),
             Container(
               child: const Card(
                 color: Colors.blue,
