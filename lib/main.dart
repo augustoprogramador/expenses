@@ -66,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction('t7', 'Camisa 5', 110.76, DateTime.now()),
     Transaction('t7', 'Camisa 5', 110.76, DateTime.now()),
   ];
+  bool _showChart = false;
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
@@ -131,16 +132,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-                height: availableHeight * 0.3,
-                child: Chart(recentTransactions: recentTransactions)),
-            Container(
-              height: availableHeight * 0.7,
-              child: TransactionList(
-                transactions: _transactions,
-                deleteTransaction: _deleteTransaction,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Exibir Gráfico'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (value) {
+                    setState(() {
+                      this._showChart = value;
+                    });
+                  },
+                ),
+              ],
             ),
+            this._showChart
+                ? Container(
+                    height: availableHeight * 0.3,
+                    child: Chart(recentTransactions: recentTransactions))
+                : Container(
+                    height: availableHeight * 0.7,
+                    child: TransactionList(
+                      transactions: _transactions,
+                      deleteTransaction: _deleteTransaction,
+                    ),
+                  ),
           ],
         ),
       ),
