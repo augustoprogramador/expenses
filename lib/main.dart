@@ -58,10 +58,13 @@ class _MyHomePageState extends State<MyHomePage> {
         't2', 'Bermuda', 90.70, DateTime.now().subtract(Duration(days: 3))),
     Transaction(
         't3', 'Camisa 1', 110.76, DateTime.now().subtract(Duration(days: 3))),
-    // Transaction('t4', 'Camisa 2', 110.76, DateTime.now()),
-    // Transaction('t5', 'Camisa 3', 110.76, DateTime.now()),
-    // Transaction('t6', 'Camisa 4', 110.76, DateTime.now()),
-    // Transaction('t7', 'Camisa 5', 110.76, DateTime.now()),
+    Transaction('t4', 'Camisa 2', 110.76, DateTime.now()),
+    Transaction('t5', 'Camisa 3', 110.76, DateTime.now()),
+    Transaction('t6', 'Camisa 4', 110.76, DateTime.now()),
+    Transaction('t7', 'Camisa 5', 110.76, DateTime.now()),
+    Transaction('t7', 'Camisa 5', 110.76, DateTime.now()),
+    Transaction('t7', 'Camisa 5', 110.76, DateTime.now()),
+    Transaction('t7', 'Camisa 5', 110.76, DateTime.now()),
   ];
 
   _openTransactionFormModal(BuildContext context) {
@@ -104,38 +107,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: const Text('Despesas Pessoais'),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+            _openTransactionFormModal(context);
+          },
+        ),
+      ],
+    );
+    final availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              _openTransactionFormModal(context);
-            },
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(recentTransactions: recentTransactions),
             Container(
-              child: const Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('Gráfico'),
+                height: availableHeight * 0.4,
+                child: Chart(recentTransactions: recentTransactions)),
+            Container(
+              height: availableHeight * 0.6,
+              child: TransactionList(
+                transactions: _transactions,
+                deleteTransaction: _deleteTransaction,
               ),
-            ),
-            Column(
-              children: [
-                TransactionList(
-                  transactions: _transactions,
-                  deleteTransaction: _deleteTransaction,
-                ),
-              ],
             ),
           ],
         ),
