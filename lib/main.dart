@@ -111,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     double chartHeight = isLandscape ? 0.6 : 0.3;
+    double listHeight = isLandscape ? 1 : 0.7;
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
@@ -150,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Chart(recentTransactions: recentTransactions)),
             if (!_showChart || !isLandscape)
               Container(
-                height: availableHeight * 0.7,
+                height: availableHeight * listHeight,
                 child: TransactionList(
                   transactions: _transactions,
                   deleteTransaction: _deleteTransaction,
