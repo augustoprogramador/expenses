@@ -43,61 +43,68 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              controller: titleController,
-              onSubmitted: (_) => _submitForm(),
-              decoration: const InputDecoration(
-                label: Text('Título'),
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                controller: titleController,
+                onSubmitted: (_) => _submitForm(),
+                decoration: const InputDecoration(
+                  label: Text('Título'),
+                ),
               ),
-            ),
-            TextField(
-              controller: valueController,
-              onSubmitted: (_) => _submitForm(),
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
-                label: Text('Valor R\$'),
+              TextField(
+                controller: valueController,
+                onSubmitted: (_) => _submitForm(),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(
+                  label: Text('Valor R\$'),
+                ),
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    _selectedDate == null
-                        ? 'Nenhuma data selecionada!'
-                        : 'Data selecionada: ${DateFormat('d/M/y').format(_selectedDate!)}',
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? 'Nenhuma data selecionada!'
+                          : 'Data selecionada: ${DateFormat('d/M/y').format(_selectedDate!)}',
+                    ),
                   ),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.primary,
-                    backgroundColor: Colors.white,
-                    elevation: 0,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.primary,
+                      backgroundColor: Colors.white,
+                      elevation: 0,
+                    ),
+                    onPressed: _showDatePicker,
+                    child: Text('Selecionar data'),
                   ),
-                  onPressed: _showDatePicker,
-                  child: Text('Selecionar data'),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: _submitForm,
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.purple,
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: _submitForm,
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.purple,
+                    ),
+                    child: const Text('Nova Transação'),
                   ),
-                  child: const Text('Nova Transação'),
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
