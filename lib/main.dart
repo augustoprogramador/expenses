@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:expenses/components/chart.dart';
@@ -108,14 +109,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    bool isLandscape = mediaQuery.orientation == Orientation.landscape;
     double chartHeight = isLandscape ? 0.6 : 0.3;
     double listHeight = isLandscape ? 1 : 0.7;
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
-        style: TextStyle(fontSize: 20 * MediaQuery.of(context).textScaleFactor),
+        style: TextStyle(fontSize: 20 * mediaQuery.textScaleFactor),
       ),
       actions: [
         if (isLandscape)
@@ -135,9 +136,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
-    final availableHeight = MediaQuery.of(context).size.height -
+    final availableHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: appBar,
@@ -167,7 +168,8 @@ class _MyHomePageState extends State<MyHomePage> {
           _openTransactionFormModal(context);
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation:
+          Platform.isIOS ? null : FloatingActionButtonLocation.centerFloat,
     );
   }
 }
