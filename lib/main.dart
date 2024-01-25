@@ -25,7 +25,8 @@ class ExpensesApp extends StatelessWidget {
       theme: tema.copyWith(
         colorScheme: tema.colorScheme.copyWith(
           primary: Colors.purple,
-          secondary: Colors.amber,
+          secondary: Colors.grey[200],
+          tertiary: Colors.amber,
         ),
         textTheme: tema.textTheme.copyWith(
           titleLarge: const TextStyle(
@@ -161,23 +162,25 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar.preferredSize.height -
         mediaQuery.padding.top;
 
-    final bodyPage = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (_showChart || !isLandscape)
-            Container(
-                height: availableHeight * chartHeight,
-                child: Chart(recentTransactions: recentTransactions)),
-          if (!_showChart || !isLandscape)
-            Container(
-              height: availableHeight * listHeight,
-              child: TransactionList(
-                transactions: _transactions,
-                deleteTransaction: _deleteTransaction,
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (_showChart || !isLandscape)
+              Container(
+                  height: availableHeight * chartHeight,
+                  child: Chart(recentTransactions: recentTransactions)),
+            if (!_showChart || !isLandscape)
+              Container(
+                height: availableHeight * listHeight,
+                child: TransactionList(
+                  transactions: _transactions,
+                  deleteTransaction: _deleteTransaction,
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
     return Platform.isIOS
